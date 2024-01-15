@@ -19,6 +19,7 @@ public class TestButtons {
 
     @Before
             public void setUp() {
+        // Set up drivers and GET request
                 FirefoxOptions options = new FirefoxOptions();
                 options.setBinary("C:/Program Files/Mozilla Firefox/firefox.exe");
 
@@ -31,6 +32,8 @@ public class TestButtons {
     @Test
 
         public void testForm() {
+
+        //Text Fields
         WebElement fName = driver.findElement(By.xpath("//input[@id='first-name']"));
         fName.sendKeys("First Name");
 
@@ -44,24 +47,28 @@ public class TestButtons {
         WebElement edu2 = driver.findElement(By.xpath("//input[@id='radio-button-2']"));
         WebElement edu3 = driver.findElement(By.xpath("//input[@id='radio-button-3']"));
 
+        // Runs a RAND, returns integer, switch determines education
         switch (educationCalc()) {
             case 0 -> edu1.click();
             case 1 -> edu2.click();
             case 2 -> edu3.click();
         }
-
+        //Define all 3 radio buttons
         WebElement gender1 = driver.findElement(By.xpath("//input[@id='checkbox-1']"));
         WebElement gender2 = driver.findElement(By.xpath("//input[@id='checkbox-2']"));
         WebElement gender3 = driver.findElement(By.xpath("//input[@id='checkbox-3']"));
 
+        //Another RAND calc for case on returned INT
         switch (UserRandGen.genderAssigner()) {
             case 0 -> gender1.click();
             case 1 -> gender2.click();
             case 2 -> gender3.click();
         }
 
+        // Assign return of another calc to a local int
         int expValue = UserRandGen.expAssigner();
 
+        // IF ELSE gate which is choosing the select menu option based on returned case
         if (expValue < 2) {
             WebElement zeroOne = driver.findElement(By.xpath("//select[@id='select-menu']/option[1]"));
             zeroOne.click();
@@ -77,16 +84,20 @@ public class TestButtons {
             tenPlus.click();
         }
 
+        // Date picker thats calculating 3 plausible date numbers, concat, and then pushing that as text for date
         WebElement date = driver.findElement(By.xpath("//input[@id='datepicker']"));
         date.sendKeys(UserRandGen.dayAssigner() + "/" + UserRandGen.monthAssigner() + "/" + UserRandGen.yearAssigner());
 
+        // Submit button click
         WebElement submit = driver.findElement(By.xpath("//a[@class='btn btn-lg btn-primary']"));
         submit.click();
 
+        // Are we on the validation page?
         assertEquals("https://formy-project.herokuapp.com/thanks", driver.getCurrentUrl());
     }
     @After
         public void tearDown() {
+            // Kill script
             driver.quit();
         }
 
