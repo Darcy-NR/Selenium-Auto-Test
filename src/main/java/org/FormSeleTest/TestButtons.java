@@ -34,14 +34,6 @@ public class TestButtons {
         public void testForm() {
 
         //Text Fields
-        WebElement fName = driver.findElement(By.xpath("//input[@id='first-name']"));
-        fName.sendKeys("First Name");
-
-        WebElement lName = driver.findElement(By.xpath("//input[@id='last-name']"));
-        lName.sendKeys("Last Name");
-
-        WebElement jobName = driver.findElement(By.xpath("//input[@id='job-title']"));
-        jobName.sendKeys("Last Name");
 
         WebElement edu1 = driver.findElement(By.xpath("//input[@id='radio-button-1']"));
         WebElement edu2 = driver.findElement(By.xpath("//input[@id='radio-button-2']"));
@@ -59,11 +51,21 @@ public class TestButtons {
         WebElement gender3 = driver.findElement(By.xpath("//input[@id='checkbox-3']"));
 
         //Another RAND calc for case on returned INT
-        switch (UserRandGen.genderAssigner()) {
+        int gender = UserRandGen.genderAssigner();
+        switch (gender) {
             case 0 -> gender1.click();
             case 1 -> gender2.click();
             case 2 -> gender3.click();
         }
+
+        WebElement fName = driver.findElement(By.xpath("//input[@id='first-name']"));
+        fName.sendKeys(UserRandGen.FnameGen(gender));
+
+        WebElement lName = driver.findElement(By.xpath("//input[@id='last-name']"));
+        lName.sendKeys(UserRandGen.LnameGen());
+
+        WebElement jobName = driver.findElement(By.xpath("//input[@id='job-title']"));
+        jobName.sendKeys(UserRandGen.jobGen());
 
         // Assign return of another calc to a local int
         int expValue = UserRandGen.expAssigner();
@@ -84,7 +86,7 @@ public class TestButtons {
             tenPlus.click();
         }
 
-        // Date picker thats calculating 3 plausible date numbers, concat, and then pushing that as text for date
+        // Date picker that's calculating 3 plausible date numbers, concat, and then pushing that as text for date
         WebElement date = driver.findElement(By.xpath("//input[@id='datepicker']"));
         date.sendKeys(UserRandGen.dayAssigner() + "/" + UserRandGen.monthAssigner() + "/" + UserRandGen.yearAssigner());
 
