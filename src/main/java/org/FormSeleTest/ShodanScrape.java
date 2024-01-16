@@ -40,11 +40,11 @@ public class ShodanScrape {
                 wait.until(d -> searchResult.isDisplayed());
                 
                 // Grab the list of links to each of the search results, then click the first one
-                List<WebElement> resultLink = driver.findElements(By.className("title text-dark"));
+                List<WebElement> resultLink = driver.findElements(By.xpath("//a[contains(@class, 'title') and contains(@class, 'text-dark')]"));
                 resultLink.get(0).click();
-                
+
                 // Grab the details table
-                WebElement serverDetailsTable = driver.findElement(By.className("table u-full-width"));
+                WebElement serverDetailsTable = driver.findElement(By.xpath("//a[@class='table u-full-width']"));
                 getServerDetails(serverDetailsTable);
                 assertEquals(true, true);
             }
