@@ -44,15 +44,21 @@ public class ShodanScrape {
                 resultLink.get(0).click();
 
                 // Grab the details table
-                WebElement serverDetailsTable = driver.findElement(By.xpath("//a[@class='table u-full-width']"));
+                WebElement serverDetailsTable = driver.findElement(By.xpath("//table[@class='table u-full-width']"));
                 getServerDetails(serverDetailsTable);
                 assertEquals(true, true);
             }
 
     private void getServerDetails(WebElement table) {
         List<WebElement> tableItems = table.findElements(By.cssSelector("tr"));
-        for (int i = 0; i < tableItems.size()-1; i++) {
-            System.out.println(tableItems.get(i));
+        for (WebElement row : tableItems) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            for (WebElement cell : cells) {
+                System.out.println(cell.getText());
+            }
+            System.out.println();
+        }
+        //        for (int i = 0; i < tableItems.size()-1; i++) {
+//            System.out.println(tableItems.get(i));
         }
     }
-}
