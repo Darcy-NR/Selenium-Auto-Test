@@ -1,4 +1,3 @@
-
 package org.FormSeleTest;
 
 import org.junit.After;
@@ -23,7 +22,7 @@ public class TestButtons {
                 FirefoxOptions options = new FirefoxOptions();
                 options.setBinary("C:/Program Files/Mozilla Firefox/firefox.exe");
 
-                System.setProperty("webdriver.gecko.driver", "C:/Users/Nicholas/Desktop/selenium/geckodriver/geckodriver.exe");
+               // System.setProperty("webdriver.gecko.driver");
                 driver = new FirefoxDriver(options);
 
                 driver.get("https://formy-project.herokuapp.com/form");
